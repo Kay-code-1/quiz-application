@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Friends Trivia Quiz</title>
+  </head>
+  <body>
+    <h1>Friends Trivia Quiz</h1>
+    <button class="button start-quiz" onclick="startQuiz()">Start Quiz</button>
+    <br><br>
+    <h3>Let's play quiz on the most popular TV Series: F.R.I.E.N.D.S.!</h3>
+    <div class="container">
+        <div class="card">
+            <div class="question">Question goes here</div>
+                <div class="option" data-number="1"> Options to choose go here </div>
+                <div class="option" data-number="2"> Options to choose go here </div>
+                <div class="option" data-number="3"> Options to choose go here </div>
+                <div class="option" data-number="4"> Options to choose go here </div>
+            </div>
+            
+        <br><br>
+        <button class="button" id="submit-answer" onclick="checkAnswer()">Submit Answer</button>
+      </div>
+
+      <div class="highscores">
+          <h3>Leaderboard</h3>
+          <div id="score" data-value="0">Score:</div>
+            <br><br>
+            <div class="scoreboard" id="high-scores">
+                <a href="./scoreboard.html" target="_blank">View Scoreboard</a>
+            </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+    <script src="./assets/script/script.js"></script>
+  </body>
+</html>
