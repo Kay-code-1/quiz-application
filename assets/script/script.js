@@ -64,22 +64,29 @@ let questionArray = [
   },
   {
     question: "What’s the game Chandler makes up to give Joey money?",
-    options: [
-      "Rock", "Scissors", "Paper", "Cups",],
+    options: ["Rock", "Scissors", "Paper", "Cups"],
     answer: "Cups",
   },
   {
     question: "Which two friends were friends in high school?",
     options: [
-      "Rachel and Monica", "Phoebe and Monica", "Ross and Joey", "Ross and Rachel"
+      "Rachel and Monica",
+      "Phoebe and Monica",
+      "Ross and Joey",
+      "Ross and Rachel",
     ],
     answer: "Rachel and Monica",
-  }
-  //This is incomplete
-  // {
-  //   question: "What’s in Monica’s secret closet?"
-  // }
-
+  },
+  {
+    question: "What’s in Monica’s secret closet?",
+    options: [
+      "Junk",
+      "Teddy Bear",
+      "Napkins for All categories of Guests",
+      "Baby clothes",
+    ],
+    answer: "Junk",
+  },
 ];
 
 //Function to add questions and options once quiz starts
