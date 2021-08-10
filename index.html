@@ -5,37 +5,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="html" href="leaderboard.html">
     <title>Friends Trivia Quiz</title>
   </head>
   <body>
-    <h1>Friends Trivia Quiz</h1>
-    <button class="button start-quiz" onclick="startQuiz()">Start Quiz</button>
-    <br><br>
-    <h3>Let's play quiz on the most popular TV Series: F.R.I.E.N.D.S.!</h3>
-    <div class="container">
-        <div class="card">
-            <div class="question">Question goes here</div>
-                <div class="option" data-number="1"> Options to choose go here </div>
-                <div class="option" data-number="2"> Options to choose go here </div>
-                <div class="option" data-number="3"> Options to choose go here </div>
-                <div class="option" data-number="4"> Options to choose go here </div>
+    <header>
+      <div class="title">Friends Trivia Quiz</div>
+    </header>
+    
+    <main>
+      <div class="container">
+        <div class="left-panel">
+          <div id="welcome">
+            <h3>Welcome to Friends Trivia Quiz!</h3>
+            <button class="btn start-quiz" id="start-quiz" onclick="startQuiz()">Start Quiz</button>
+          </div>
+          
+          <div id="question-card">
+            <div class="question-container">
+              <div class="question"></div>
+              <div class="options"></div>
+              <div class="answer" style="visibility:hidden;">
+                <button class="btn submit-ans" id="submit-answer" onclick="checkAnswer()">
+                  Submit Answer
+                </button>
+              </div>
             </div>
-            
-        <br><br>
-        <button class="button" id="submit-answer" onclick="checkAnswer()">Submit Answer</button>
-      </div>
-
-      <div class="highscores">
+          </div>          
+        </div>
+        <div class="right-panel">
           <h3>Leaderboard</h3>
           <div id="score" data-value="0">Score:</div>
-            <br><br>
-            <div class="scoreboard" id="high-scores">
-                <a href="./scoreboard.html" target="_blank">View Scoreboard</a>
-            </div>
+          <div class="scoreboard" id="high-scores" >
+            <a href=".leaderboard.html">Leaderboard</a> </button>
+          </div>
         </div>
-        <div></div>
       </div>
-    </div>
-    <script src="./assets/script/script.js"></script>
+    </main>
+        <script src="./assets/script/script.js"></script>
   </body>
 </html>

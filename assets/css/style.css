@@ -10,28 +10,40 @@
 body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  margin: 0;
 }
 
-h1 {
-  display: block;
-  font-size: 30px;
-  width: 100%;
-  text-align: center;
-  height: 50px;
-  padding-top: 1%;
+header {
+  display: flex;
+  background-color: var(--blue);
+  color: var(--white);
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+header .title {
+  font-size: 28px;
+  font-weight: 800;
 }
 
 .container {
   display: flex;
   flex-direction: row;
   font-size: 20px;
-  width: 100%;
+  width: 1440px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
+.container .left-panel {
   width: 75%;
+}
+
+.container .right-panel {
+  width: 25%;
 }
 
 .highscores {
@@ -40,23 +52,39 @@ h1 {
   width: 25%;
 }
 
-.button {
-  display: flex;
+.btn {
   background-color: var(--dark);
   border: none;
-  border-radius: 10%;
+  border-radius: 5px;
   color: var(--whiter);
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: flexbox;
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
   width: 15%;
-  display: flex;
-  justify-content: right;
-  align-items: right;
+}
+
+.btn:hover {
+  opacity: .5;
+  transition: opacity .5s ease-out;
+}
+
+.start-quiz {
+  font-weight: 600;
+}
+
+.submit-ans {
+  width: 20%;
+}
+
+#welcome {
+  display: block;
+}
+
+#question-card {
+  display: none;
 }
 
 .scoreboard {
@@ -69,23 +97,3 @@ a:focus,
 a:active {
   text-decoration: none;
 }
-
-.start-quiz {
-  display: inline;
-  position: absolute;
-  left: 80%;
-}
-
-.start-quiz:hover,
-start-quiz:focus,
-start-quiz:active {
-  box-shadow: 5px 7px var(--lightblue);
-}
-
-/* .question {
-    display: none;
-}
-
-.options-choice {
-    display: none;
-} */
