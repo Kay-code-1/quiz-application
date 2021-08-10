@@ -1,6 +1,6 @@
-
 //let timer = 0;
 var questionTracker = 0; //Start of first question
+
 var selectedAnswer = "";
 //array for questions
 let questionArray = [
@@ -53,12 +53,19 @@ let questionArray = [
     answer: "The “I Hate Rachel Green Club.”",
   },
 ];
+
+//Function to add questions and options once quiz starts
+
 function generateQuestion() {
+  let questionNumber = document.querySelector(".question-number");
   let quizQuestion = document.querySelector(".question");
   let quizOptions = document.querySelector(".options");
   let btnAnswer = document.querySelector("#submit-answer");
 
   quizQuestion.innerHTML = questionArray[questionTracker].question;
+  questionNumber.innerHTML = "Question" + (questionTracker + 1);
+
+  //add radio buttons to choose from options
 
   const rdiOptions = [];
   questionArray[questionTracker].options.forEach((o, i) => {
@@ -67,19 +74,23 @@ function generateQuestion() {
     rdiOptions.push(input + label);
   });
   quizOptions.innerHTML = rdiOptions.join("<br>");
-  btnAnswer.style.visibility="visible";
-  btnAnswer.setAttribute("disabled","disabled");
+  btnAnswer.style.visibility = "visible";
+  btnAnswer.setAttribute("disabled", "disabled");
 }
+
+//Start quiz function
 
 function startQuiz() {
   console.log("Quiz has started!");
   console.log("Total Questions:" + questionArray.length);
   let welcome = document.getElementById("welcome");
   let questionCard = document.getElementById("question-card");
-  welcome.style.display="none";
-  questionCard.style.display="block";
+  welcome.style.display = "none";
+  questionCard.style.display = "block";
   generateQuestion();
 }
+
+//Function to store answer chosen by user
 
 function registerAnswer(ans) {
   selectedAnswer = ans;
@@ -89,16 +100,23 @@ function registerAnswer(ans) {
 
 //Check if the answer is correct
 var score = 0;
+let scre = document.getElementById("score");
+scre.innerHTML = `Score: ${score}`;
+let displayResult = document.getElementById("result");
+
+console.log("initial score: " + score);
 function checkAnswer() {
   if (questionArray[questionTracker].answer === selectedAnswer) {
     score++;
-    let scre = document.getElementById("score");
-    scre.innerHTML=`Score: ${score}`;
-    alert("Correct Answer!");
+    scre.innerHTML = `Score: ${score}`;
+    console.log("after win score: " + score);
+    alert("Correct Answer!"+" "+"Your Score is"+score);
+    
+    // displayResult.style.display = "block";
+    // displayResult.innerHTML = `Correct Answer!`;
   } else {
-    alert("Incorrect Answer!");
+    alert("Incorrect Answer!")+" "+ ("Correct Answer is:"+ questionArray[questionTracker].answer);
   }
-  
   nextQuestion();
 }
 
@@ -107,7 +125,7 @@ function nextQuestion() {
   questionTracker++;
   if (questionTracker < questionArray.length) {
     generateQuestion();
-  } else{
+  } else {
     showLeaderBoard();
   }
 }
@@ -115,5 +133,5 @@ function nextQuestion() {
 //function to show Leaderboard
 
 function showLeaderBoard() {
-//  window.location.href = "leaderboard.html";
+  
 }

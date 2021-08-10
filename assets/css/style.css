@@ -46,10 +46,11 @@ header .title {
   width: 25%;
 }
 
-.highscores {
+/*ScoreBoard */
+
+.scoreboard {
   display: flex;
   flex-direction: column;
-  width: 25%;
 }
 
 .btn {
@@ -87,13 +88,19 @@ header .title {
   display: none;
 }
 
-.scoreboard {
-  width: fit-content;
-}
-
 a,
 a:hover,
 a:focus,
 a:active {
   text-decoration: none;
+}
+
+.question-container .question-number, .question {
+  font-weight: 800;
+}
+
+/*Leaderboard input form*/
+
+.leaderboard-form .leaderboard-form-details {
+  margin: 10px 0;
 }

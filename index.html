@@ -5,43 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="html" href="leaderboard.html">
+    <!-- <link rel="html" href="leaderboard.html"> -->
     <title>Friends Trivia Quiz</title>
   </head>
+
   <body>
     <header>
       <div class="title">Friends Trivia Quiz</div>
     </header>
-    
+
     <main>
       <div class="container">
         <div class="left-panel">
           <div id="welcome">
             <h3>Welcome to Friends Trivia Quiz!</h3>
-            <button class="btn start-quiz" id="start-quiz" onclick="startQuiz()">Start Quiz</button>
+            <button
+              class="btn start-quiz"
+              id="start-quiz"
+              onclick="startQuiz()"
+            >
+              Start Quiz
+            </button>
           </div>
-          
+
+          <!--Show questions once quiz starts-->
+
           <div id="question-card">
             <div class="question-container">
+              <div class="question-number"></div>
               <div class="question"></div>
               <div class="options"></div>
-              <div class="answer" style="visibility:hidden;">
-                <button class="btn submit-ans" id="submit-answer" onclick="checkAnswer()">
-                  Submit Answer
-                </button>
-              </div>
+              <button
+                class="btn submit-ans"
+                id="submit-answer"
+                onclick="checkAnswer()"
+              >
+                Submit Answer
+              </button>
             </div>
-          </div>          
-        </div>
-        <div class="right-panel">
-          <h3>Leaderboard</h3>
-          <div id="score" data-value="0">Score:</div>
-          <div class="scoreboard" id="high-scores" >
-            <a href=".leaderboard.html">Leaderboard</a> </button>
           </div>
         </div>
+        <div class="right-panel scoreboard">
+          <h3>Leaderboard</h3>
+          <div id="score">Score:</div>
+          <div id="high-scores">High Scores:</div>
+        </div>
+      </div>
+
+      <div class="container">
+        <fieldset class="leaderboard-form" id="contact">
+          <legend class="enter-playerdetails">
+            <div class="send-message">Enter your details for Leaderboard!</div>
+          </legend>
+  
+          <div class="leaderboard-form-details">
+            <label for="pname">Player Name</label>
+            <input
+              type="text"
+              id="pname"
+              name="playername"
+              class="player-name-input"
+              placeholder="Player Name"
+            />
+          </div>
+  
+          <div class="leaderboard-form-details">
+            <input type="button" class="button" value="Submit" />
+          </div>
+        </fieldset>
       </div>
     </main>
-        <script src="./assets/script/script.js"></script>
+    <script src="./assets/script/script.js"></script>
   </body>
 </html>
