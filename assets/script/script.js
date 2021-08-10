@@ -52,6 +52,34 @@ let questionArray = [
     ],
     answer: "The “I Hate Rachel Green Club.”",
   },
+  {
+    question: "How did Susan and Ross come up with Ben’s name?",
+    options: [
+      "It was the doctor's name.",
+      "They both had uncles named Ben.",
+      "They named him after Benjamin Franklin.",
+      "It was on the Janitor's name tag.",
+    ],
+    answer: "Days of Our Lives",
+  },
+  {
+    question: "What’s the game Chandler makes up to give Joey money?",
+    options: [
+      "Rock", "Scissors", "Paper", "Cups",],
+    answer: "Cups",
+  },
+  {
+    question: "Which two friends were friends in high school?",
+    options: [
+      "Rachel and Monica", "Phoebe and Monica", "Ross and Joey", "Ross and Rachel"
+    ],
+    answer: "Rachel and Monica",
+  }
+  //This is incomplete
+  // {
+  //   question: "What’s in Monica’s secret closet?"
+  // }
+
 ];
 
 //Function to add questions and options once quiz starts
@@ -110,12 +138,9 @@ function checkAnswer() {
     score++;
     scre.innerHTML = `Score: ${score}`;
     console.log("after win score: " + score);
-    alert("Correct Answer!"+" "+"Your Score is"+score);
-    
-    // displayResult.style.display = "block";
-    // displayResult.innerHTML = `Correct Answer!`;
+    alert("Correct Answer!" + " " + "Your Score is: " + score);
   } else {
-    alert("Incorrect Answer!")+" "+ ("Correct Answer is:"+ questionArray[questionTracker].answer);
+    alert("Incorrect Answer!");
   }
   nextQuestion();
 }
@@ -133,5 +158,6 @@ function nextQuestion() {
 //function to show Leaderboard
 
 function showLeaderBoard() {
-  
+  let leaderBoard = document.getElementById("leaderboard");
+  leaderBoard.style.display = "block";
 }

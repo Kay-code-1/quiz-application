@@ -101,6 +101,10 @@ a:active {
 
 /*Leaderboard input form*/
 
+#leaderboard {
+  display: none;
+}
+
 .leaderboard-form .leaderboard-form-details {
   margin: 10px 0;
 }
