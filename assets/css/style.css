@@ -233,3 +233,16 @@ a:active {
   margin-top: 10px;
   padding: 20px;
 }
+
+/*FRIENDS Styling*/
+.red {
+  color: red;
+}
+
+.blue {
+  color: rgb(0, 195, 255);
+}
+
+.yellow {
+  color: yellow;
+}

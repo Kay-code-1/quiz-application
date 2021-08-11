@@ -1,30 +1,14 @@
-var timer = 0;
-var duration = 30;
-var display = document.querySelector("#time");
-var questionTracker = 0; //Start of first question
-var selectedAnswer = "";
-var score = 0;
+//Welcome message variable
 var welcome = document.getElementById("welcome");
+
+//Question and Answer variables
+var questionTracker = 0;
+var selectedAnswer = "";
 var questionCard = document.getElementById("question-card");
 var displayResult = document.getElementById("result");
 var ansStatus = document.getElementById("ans-status");
-var scre = document.getElementById("score");
 var nxtQues = document.getElementById("next-que");
-var leaderBoard = document.getElementById("leaderboard");
-scre.innerHTML = `Score: ${score}`;
 
-//initialize leaderboard
-var scoreTable = document.getElementById("score-table");
-scoreTable.innerHTML = "";
-var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
-if (leaderBoardScore) {
-  var trows = leaderBoardScore.map((q) => {
-    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-  });
-  scoreTable.innerHTML = trows.join("");
-}
-
-console.log("initial score: " + score);
 //array for questions
 const questionArray = [
   //array of quiz questions
@@ -108,19 +92,44 @@ const questionArray = [
   },
 ];
 
+//Leader Board variables
+
+var score = 0;
+var scre = document.getElementById("score");
+var leaderBoard = document.getElementById("leaderboard");
+scre.innerHTML = `Score: ${score}`;
+
+//initialize leaderboard
+var scoreTable = document.getElementById("score-table");
+scoreTable.innerHTML = "";
+var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
+if (leaderBoardScore) {
+  var trows = leaderBoardScore.map((q) => {
+    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+  });
+  scoreTable.innerHTML = trows.join("");
+}
+console.log("initial score: " + score);
+
+//Timer variables
+var timer = 0;
+//Quiz duration is 30 seconds
+var duration = 30;
+var displayTimeEl = document.querySelector("#time");
+
 //Timer Countdown function
 
-function startTimer(duration, display) {
+function startTimer(duration, displayTimeEl) {
   let countdown = duration,
     seconds;
   timer = setInterval(function () {
     seconds = parseInt(countdown % 60, 10);
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
-    display.textContent = seconds;
+    displayTimeEl.textContent = seconds;
 
     if (--countdown < 0) {
-      display.textContent = "00";
+      displayTimeEl.textContent = "00";
       alert("Time's up!");
       showLeaderBoard();
     }
@@ -152,7 +161,7 @@ function generateQuestion() {
 
 //Start quiz function
 function startQuiz() {
-   startTimer(duration, display);
+  startTimer(duration, displayTimeEl);
   console.log("Quiz has started!");
   console.log("Total Questions:" + questionArray.length);
 
@@ -178,10 +187,10 @@ function checkAnswer() {
     ansStatus.innerHTML = "Correct Answer!";
     ansStatus.style.color = "green";
   } else {
-   // duration=duration-5; - to add a function for reducing 5 seconds for incorrect answer
-  
+    // duration=duration-5; - to add a function for reducing 5 seconds for incorrect answer
     ansStatus.innerHTML = "Incorrect Answer!";
     ansStatus.style.color = "red";
+    console.log("timer duration: " + timer);
   }
 
   nxtQues.style.visibility = "visible";
@@ -193,6 +202,7 @@ function checkAnswer() {
   }
 }
 
+//Function to display next question once user submits an answer
 function nextQuestion() {
   ansStatus.innerHTML = "";
   nxtQues.style.visibility = "hidden";
@@ -206,6 +216,7 @@ function nextQuestion() {
 }
 
 //function to show Leaderboard
+
 function showLeaderBoard() {
   questionTracker = 0;
   clearInterval(timer);
