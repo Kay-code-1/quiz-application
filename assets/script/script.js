@@ -9,6 +9,12 @@ var displayResult = document.getElementById("result");
 var ansStatus = document.getElementById("ans-status");
 var nxtQues = document.getElementById("next-que");
 
+//Timer variables
+var timer = 0;
+//Quiz duration is 45 seconds
+var duration = 45;
+var displayTimeEl = document.querySelector("#time");
+
 //array for questions
 const questionArray = [
   //array of quiz questions
@@ -111,17 +117,12 @@ if (leaderBoardScore) {
 }
 console.log("initial score: " + score);
 
-//Timer variables
-var timer = 0;
-//Quiz duration is 30 seconds
-var duration = 30;
-var displayTimeEl = document.querySelector("#time");
+
 
 //Timer Countdown function
 
-function startTimer(duration, displayTimeEl) {
-  let countdown = duration,
-    seconds;
+function startTimer(countdown, displayTimeEl) {
+  let seconds;
   timer = setInterval(function () {
     seconds = parseInt(countdown % 60, 10);
     seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -175,11 +176,16 @@ function startQuiz() {
 function registerAnswer(ans) {
   let btnAnswer = document.querySelector("#submit-answer");
   selectedAnswer = ans;
+
   btnAnswer.removeAttribute("disabled");
 }
 
 //Check if the answer is correct
 function checkAnswer() {
+  // disable radio buttons on submit
+  let rdoOptions = document.querySelectorAll("[name='answers']");
+  rdoOptions.forEach(o => o.setAttribute("disabled", "disabled"));
+
   if (questionArray[questionTracker].answer === selectedAnswer) {
     score++;
     scre.innerHTML = `Score: ${score}`;
@@ -187,10 +193,12 @@ function checkAnswer() {
     ansStatus.innerHTML = "Correct Answer!";
     ansStatus.style.color = "green";
   } else {
-    // duration=duration-5; - to add a function for reducing 5 seconds for incorrect answer
     ansStatus.innerHTML = "Incorrect Answer!";
     ansStatus.style.color = "red";
-    console.log("timer duration: " + timer);
+
+    clearInterval(timer);
+    let reducedTime = parseInt(displayTimeEl.textContent, 10) - 4; //reduce 4 seconds - penalty
+    startTimer(reducedTime, displayTimeEl);
   }
 
   nxtQues.style.visibility = "visible";
