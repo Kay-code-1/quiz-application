@@ -1,4 +1,6 @@
 var timer = 0;
+var duration = 30;
+var display = document.querySelector("#time");
 var questionTracker = 0; //Start of first question
 var selectedAnswer = "";
 var score = 0;
@@ -106,6 +108,8 @@ const questionArray = [
   },
 ];
 
+//Timer Countdown function
+
 function startTimer(duration, display) {
   let countdown = duration,
     seconds;
@@ -148,9 +152,7 @@ function generateQuestion() {
 
 //Start quiz function
 function startQuiz() {
-  var duration = 30,
-    display = document.querySelector("#time");
-  startTimer(duration, display);
+   startTimer(duration, display);
   console.log("Quiz has started!");
   console.log("Total Questions:" + questionArray.length);
 
@@ -176,6 +178,8 @@ function checkAnswer() {
     ansStatus.innerHTML = "Correct Answer!";
     ansStatus.style.color = "green";
   } else {
+   // duration=duration-5; - to add a function for reducing 5 seconds for incorrect answer
+  
     ansStatus.innerHTML = "Incorrect Answer!";
     ansStatus.style.color = "red";
   }
