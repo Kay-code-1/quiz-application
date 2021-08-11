@@ -13,9 +13,14 @@ body {
   margin: 0;
 }
 
+input[type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
 header {
   display: flex;
-  background-color: var(--blue);
+  background-color: var(--dark);
   color: var(--white);
   height: 80px;
   align-items: center;
@@ -80,6 +85,18 @@ header .title {
   width: 20%;
 }
 
+#submit-answer[disabled=disabled] {
+  opacity: .5;
+}
+
+#ans-status {
+  font-weight: 800;
+}
+
+.next-que {
+  visibility: hidden;
+}
+
 #welcome {
   display: block;
 }
@@ -95,8 +112,36 @@ a:active {
   text-decoration: none;
 }
 
+.question-container {
+  width: 75%;
+  border: 1px solid var(--whiter);
+  padding: 1.5rem;
+}
+
 .question-container .question-number, .question {
   font-weight: 800;
+}
+
+.question-container .question {
+  margin-top: 1.5rem;
+}
+
+.question-container .form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.question-container .form-check-input {
+  position: absolute;
+  margin-top: .3rem;
+  margin-left: -1.25rem;
+}
+
+.question-container .form-check-label {
+  display: inline-block;
+  margin-bottom: 0;
 }
 
 /*Leaderboard input form*/
@@ -105,6 +150,86 @@ a:active {
   display: none;
 }
 
-.leaderboard-form .leaderboard-form-details {
+.leaderboard-form {
+  padding: 10px;
   margin: 10px 0;
+  width: 75%;
+  border: 1px solid var(--whiter);
+}
+
+.leaderboard-form .leaderboard-form-title {
+  font-weight: 800;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--dark);
+}
+
+.leaderboard-form .leaderboard-form-details {
+  padding: 10px;
+}
+
+.leaderboard-form label {
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.leaderboard-form .leaderboard-form-input {
+  display: block;
+  width: 90%;
+  height:20px;
+  padding:.375rem .75rem;
+  font-size: 18px;
+  color: #212529;
+  background-color: #fff;    
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+/*Button styling*/
+
+.leaderboard-form .leaderboard-form-details .button {
+  background-color: var(--dark);
+  width: 100px;
+  padding: 8px;
+}
+
+
+.table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.current-score, .high-scores {
+  border: 1px solid var(--whiter);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.high-scores {
+  height: 440px;
+  overflow-y: auto;
+}
+
+
+/*timer styling*/
+.timer {
+  border: 1px solid var(--whiter);
+  font-size: 20px;
+  margin-top: 10px;
+  padding: 20px;
 }

@@ -11,7 +11,7 @@
 
   <body>
     <header>
-      <div class="title">Friends Trivia Quiz</div>
+      <div class="title">FRIENDS Trivia Quiz</div>
     </header>
 
     <main>
@@ -27,52 +27,79 @@
               Start Quiz
             </button>
           </div>
-
           <!--Show questions once quiz starts-->
-
           <div id="question-card">
             <div class="question-container">
               <div class="question-number"></div>
               <div class="question"></div>
-              <div class="options"></div>
-              <button
-                class="btn submit-ans"
-                id="submit-answer"
-                onclick="checkAnswer()"
-              >
-                Submit Answer
-              </button>
+              <div class="options" id="options"></div>
+              <div>
+                <button
+                  class="btn submit-ans"
+                  id="submit-answer"
+                  onclick="checkAnswer()"
+                >
+                  Submit
+                </button>
+                <button
+                  class="btn next-que"
+                  id="next-que"
+                  onclick="nextQuestion()"
+                >
+                  Next
+                </button>
+                <span id="ans-status"></span>
+              </div>
+              <div class="timer">Time left <span id="time">30</span> seconds!</div>
+            </div>
+          </div>
+
+          <div id="leaderboard">
+            <div class="leaderboard-form">
+              <div class="leaderboard-form-title">
+                Enter your details for Leaderboard!
+              </div>
+
+              <div class="leaderboard-form-details">
+                <div class="player-name">
+                  <label for="pname">Player Name</label>
+                  <input
+                    type="text"
+                    id="pname"
+                    name="playername"
+                    class="leaderboard-form-input"
+                    placeholder="Player Name"
+                  />
+                </div>
+
+                <input
+                  type="button"
+                  class="btn"
+                  value="Submit"
+                  onclick="saveLeaderBoard()"
+                />
+              </div>
             </div>
           </div>
         </div>
         <div class="right-panel scoreboard">
-          <h3>Leaderboard</h3>
-          <div id="score">Score:</div>
-          <div id="high-scores">High Scores:</div>
+          <h3>Current Quiz</h3>
+          <div class="current-score" id="score">Score:</div>
+          <div class="high-scores" id="high-scores">
+            <h3>High Scores:</h3>
+            <div class="playerboard">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Player Name</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody id="score-table"></tbody>
+              </table>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="container" id="leaderboard">
-        <fieldset class="leaderboard-form" id="contact">
-          <legend class="enter-playerdetails">
-            <div class="send-message">Enter your details for Leaderboard!</div>
-          </legend>
-  
-          <div class="leaderboard-form-details">
-            <label for="pname">Player Name</label>
-            <input
-              type="text"
-              id="pname"
-              name="playername"
-              class="player-name-input"
-              placeholder="Player Name"
-            />
-          </div>
-  
-          <div class="leaderboard-form-details">
-            <input type="button" class="button" value="Submit" />
-          </div>
-        </fieldset>
       </div>
     </main>
     <script src="./assets/script/script.js"></script>

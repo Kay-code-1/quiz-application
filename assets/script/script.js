@@ -1,9 +1,30 @@
-//let timer = 0;
+var timer = 0;
 var questionTracker = 0; //Start of first question
-
 var selectedAnswer = "";
+var score = 0;
+var welcome = document.getElementById("welcome");
+var questionCard = document.getElementById("question-card");
+var displayResult = document.getElementById("result");
+var ansStatus = document.getElementById("ans-status");
+var scre = document.getElementById("score");
+var nxtQues = document.getElementById("next-que");
+var leaderBoard = document.getElementById("leaderboard");
+scre.innerHTML = `Score: ${score}`;
+
+//initialize leaderboard
+var scoreTable = document.getElementById("score-table");
+scoreTable.innerHTML = "";
+var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
+if (leaderBoardScore) {
+  var trows = leaderBoardScore.map((q) => {
+    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+  });
+  scoreTable.innerHTML = trows.join("");
+}
+
+console.log("initial score: " + score);
 //array for questions
-let questionArray = [
+const questionArray = [
   //array of quiz questions
   {
     question: "Joey played Dr. Drake Ramoray on which soap opera show?",
@@ -18,7 +39,7 @@ let questionArray = [
 
   {
     question: "Phoebe’s scientist boyfriend David worked in what city?",
-    options: ["Mumbai", "Pune", "Sunnyvale", "Minsk"],
+    options: ["New York", "Miami", "Sunnyvale", "Minsk"],
     answer: "Minsk",
   },
   {
@@ -53,14 +74,10 @@ let questionArray = [
     answer: "The “I Hate Rachel Green Club.”",
   },
   {
-    question: "How did Susan and Ross come up with Ben’s name?",
-    options: [
-      "It was the doctor's name.",
-      "They both had uncles named Ben.",
-      "They named him after Benjamin Franklin.",
-      "It was on the Janitor's name tag.",
-    ],
-    answer: "Days of Our Lives",
+    question:
+      "Susan and Ross named Ben because it was the name of which person?",
+    options: ["Doctor Ben", "Uncle Ben", "Benjamin Franklin", "Janitor Ben"],
+    answer: "Janitor Ben",
   },
   {
     question: "What’s the game Chandler makes up to give Joey money?",
@@ -89,8 +106,24 @@ let questionArray = [
   },
 ];
 
-//Function to add questions and options once quiz starts
+function startTimer(duration, display) {
+  let countdown = duration,
+    seconds;
+  timer = setInterval(function () {
+    seconds = parseInt(countdown % 60, 10);
+    seconds = seconds < 10 ? "0" + seconds : seconds;
 
+    display.textContent = seconds;
+
+    if (--countdown < 0) {
+      display.textContent = "00";
+      alert("Time's up!");
+      showLeaderBoard();
+    }
+  }, 1000);
+}
+
+//Function to add questions and options once quiz starts
 function generateQuestion() {
   let questionNumber = document.querySelector(".question-number");
   let quizQuestion = document.querySelector(".question");
@@ -98,61 +131,67 @@ function generateQuestion() {
   let btnAnswer = document.querySelector("#submit-answer");
 
   quizQuestion.innerHTML = questionArray[questionTracker].question;
-  questionNumber.innerHTML = "Question" + (questionTracker + 1);
+  questionNumber.innerHTML = "Question " + (questionTracker + 1);
 
   //add radio buttons to choose from options
-
   const rdiOptions = [];
   questionArray[questionTracker].options.forEach((o, i) => {
-    let input = `<input type='radio' id='rdo_${i}' name='answers' value='${o}' onclick='registerAnswer("${o}")'>`;
-    let label = `<label for='rdo_${i}'>${o}</label>`;
-    rdiOptions.push(input + label);
+    let input = `<input type='radio' id='rdo_${i}' name='answers' class='form-check-input' value='${o}' onclick='registerAnswer("${o}")'>`;
+    let label = `<label for='rdo_${i}' class='form-check-label'>${o}</label>`;
+    let rdoGroup = `<div class='form-check'>${input + label}</div>`;
+    rdiOptions.push(rdoGroup);
   });
-  quizOptions.innerHTML = rdiOptions.join("<br>");
+  quizOptions.innerHTML = rdiOptions.join("");
   btnAnswer.style.visibility = "visible";
   btnAnswer.setAttribute("disabled", "disabled");
 }
 
 //Start quiz function
-
 function startQuiz() {
+  var duration = 30,
+    display = document.querySelector("#time");
+  startTimer(duration, display);
   console.log("Quiz has started!");
   console.log("Total Questions:" + questionArray.length);
-  let welcome = document.getElementById("welcome");
-  let questionCard = document.getElementById("question-card");
+
   welcome.style.display = "none";
   questionCard.style.display = "block";
+
   generateQuestion();
 }
 
 //Function to store answer chosen by user
-
 function registerAnswer(ans) {
-  selectedAnswer = ans;
   let btnAnswer = document.querySelector("#submit-answer");
+  selectedAnswer = ans;
   btnAnswer.removeAttribute("disabled");
 }
 
 //Check if the answer is correct
-var score = 0;
-let scre = document.getElementById("score");
-scre.innerHTML = `Score: ${score}`;
-let displayResult = document.getElementById("result");
-
-console.log("initial score: " + score);
 function checkAnswer() {
   if (questionArray[questionTracker].answer === selectedAnswer) {
     score++;
     scre.innerHTML = `Score: ${score}`;
     console.log("after win score: " + score);
-    alert("Correct Answer!" + " " + "Your Score is: " + score);
+    ansStatus.innerHTML = "Correct Answer!";
+    ansStatus.style.color = "green";
   } else {
-    alert("Incorrect Answer!");
+    ansStatus.innerHTML = "Incorrect Answer!";
+    ansStatus.style.color = "red";
   }
-  nextQuestion();
+
+  nxtQues.style.visibility = "visible";
+  let submitBtn = document.getElementById("submit-answer");
+  if (questionTracker < questionArray.length) {
+    submitBtn.setAttribute("disabled", "disabled");
+  } else {
+    submitBtn.style.display = "none";
+  }
 }
 
 function nextQuestion() {
+  ansStatus.innerHTML = "";
+  nxtQues.style.visibility = "hidden";
   selectedAnswer = "";
   questionTracker++;
   if (questionTracker < questionArray.length) {
@@ -163,8 +202,42 @@ function nextQuestion() {
 }
 
 //function to show Leaderboard
-
 function showLeaderBoard() {
-  let leaderBoard = document.getElementById("leaderboard");
+  questionTracker = 0;
+  clearInterval(timer);
+  questionCard.style.display = "none";
   leaderBoard.style.display = "block";
+  let player = document.getElementById("pname");
+  player.value = "";
+}
+
+function saveLeaderBoard() {
+  let player = document.getElementById("pname");
+  console.log(`Your Score\nName:${player.value}\nscore:${score}`);
+  let playerscore = {
+    name: player.value,
+    score: score,
+  };
+
+  var quiz = JSON.parse(localStorage.getItem("quiz"));
+
+  if (quiz) {
+    quiz.push(playerscore);
+    localStorage.setItem("quiz", JSON.stringify(quiz));
+  } else {
+    localStorage.setItem("quiz", JSON.stringify([playerscore]));
+  }
+
+  console.log("Player name from Local storage" + player.value);
+  console.log("Player score" + score);
+
+  scoreTable.innerHTML = "";
+  let trows = quiz.map((q) => {
+    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+  });
+  scoreTable.innerHTML = trows.join("");
+  leaderBoard.style.display = "none";
+  welcome.style.display = "block";
+  score = 0;
+  scre.innerHTML = `Score: ${score}`;
 }
