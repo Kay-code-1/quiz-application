@@ -101,21 +101,30 @@ const questionArray = [
 //Leader Board variables
 
 var score = 0;
-var scre = document.getElementById("score");
+var scoreEl = document.getElementById("score");
 var leaderBoard = document.getElementById("leaderboard");
-scre.innerHTML = "Score: "+ score;
+scoreEl.innerHTML = "Score: "+ score;
 //scre.innerHTML = `Score: ${score}`;
 
 //initialize leaderboard
 var scoreTable = document.getElementById("score-table");
 scoreTable.innerHTML = "";
 var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
-if (leaderBoardScore) {
-  var trows = leaderBoardScore.map((q) => {
-    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-  });
-  scoreTable.innerHTML = trows.join("");
+
+if(leaderBoardScore) {
+  var trows = 
+  function showScore() {
+    for 
+    
+  }
 }
+
+// if (leaderBoardScore) {
+//   var trows = leaderBoardScore.map((q) => {
+//     return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+//   });
+//   scoreTable.innerHTML = trows.join("");
+// }
 console.log("initial score: " + score);
 
 
