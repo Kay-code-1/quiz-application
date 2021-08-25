@@ -103,7 +103,8 @@ const questionArray = [
 var score = 0;
 var scre = document.getElementById("score");
 var leaderBoard = document.getElementById("leaderboard");
-scre.innerHTML = `Score: ${score}`;
+scre.innerHTML = "Score: "+ score;
+//scre.innerHTML = `Score: ${score}`;
 
 //initialize leaderboard
 var scoreTable = document.getElementById("score-table");
