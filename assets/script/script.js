@@ -110,21 +110,22 @@ scoreEl.innerHTML = "Score: "+ score;
 var scoreTable = document.getElementById("score-table");
 scoreTable.innerHTML = "";
 var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
+console.log("Leaderboard score" + leaderBoardScore);
 
-if(leaderBoardScore) {
-  var trows = 
-  function showScore() {
-    for 
+// if(leaderBoardScore) {
+//   var trows = 
+//   function showScore() {
+//     for 
     
-  }
-}
-
-// if (leaderBoardScore) {
-//   var trows = leaderBoardScore.map((q) => {
-//     return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-//   });
-//   scoreTable.innerHTML = trows.join("");
+//   }
 // }
+
+if (leaderBoardScore) {
+  var trows = leaderBoardScore.map((q) => {
+    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+  });
+  scoreTable.innerHTML = trows.join("");
+}
 console.log("initial score: " + score);
 
 
@@ -246,7 +247,9 @@ function showLeaderBoard() {
 
 function saveLeaderBoard() {
   let player = document.getElementById("pname");
-  console.log(`Your Score\nName:${player.value}\nscore:${score}`);
+  
+  console.log("Your score\n" + "Name:" + player.value + "\nScore:" + score);
+  //console.log(`Your Score\nName:${player.value}\nscore:${score}`);
   let playerscore = {
     name: player.value,
     score: score,
@@ -272,5 +275,7 @@ function saveLeaderBoard() {
   leaderBoard.style.display = "none";
   welcome.style.display = "block";
   score = 0;
-  scre.innerHTML = `Score: ${score}`;
+
+  scoreEl.innerHTML = "Score: " + score;
+  //scre.innerHTML = `Score: ${score}`;
 }
