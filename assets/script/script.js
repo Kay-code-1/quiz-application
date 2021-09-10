@@ -103,32 +103,30 @@ const questionArray = [
 var score = 0;
 var scoreEl = document.getElementById("score");
 var leaderBoard = document.getElementById("leaderboard");
-scoreEl.innerHTML = "Score: "+ score;
+scoreEl.innerHTML = "Score: " + score;
 //scre.innerHTML = `Score: ${score}`;
 
-//initialize leaderboard
+//initialize leaderboard on highscore page
 var scoreTable = document.getElementById("score-table");
 scoreTable.innerHTML = "";
 var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
 console.log("Leaderboard score" + leaderBoardScore);
 
-// if(leaderBoardScore) {
-//   var trows = 
-//   function showScore() {
-//     for 
-    
-//   }
-// }
-
+//populate Leaderboard
 if (leaderBoardScore) {
-  var trows = leaderBoardScore.map((q) => {
-    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-  });
+  var trows = [];
+  for (var i = 0; i < leaderBoard.length; i++) {
+    trows.push(
+      "<tr><td>" +
+        leaderBoard[i].name +
+        "</td><td>" +
+        leaderBoard[i].score +
+        "</td>"
+    );
+  }
   scoreTable.innerHTML = trows.join("");
 }
 console.log("initial score: " + score);
-
-
 
 //Timer Countdown function
 
@@ -195,7 +193,7 @@ function registerAnswer(ans) {
 function checkAnswer() {
   // disable radio buttons on submit
   let rdoOptions = document.querySelectorAll("[name='answers']");
-  rdoOptions.forEach(o => o.setAttribute("disabled", "disabled"));
+  rdoOptions.forEach((o) => o.setAttribute("disabled", "disabled"));
 
   if (questionArray[questionTracker].answer === selectedAnswer) {
     score++;
@@ -247,7 +245,7 @@ function showLeaderBoard() {
 
 function saveLeaderBoard() {
   let player = document.getElementById("pname");
-  
+
   console.log("Your score\n" + "Name:" + player.value + "\nScore:" + score);
   //console.log(`Your Score\nName:${player.value}\nscore:${score}`);
   let playerscore = {
