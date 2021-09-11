@@ -104,34 +104,11 @@ var score = 0;
 var scoreEl = document.getElementById("score");
 var leaderBoard = document.getElementById("leaderboard");
 scoreEl.innerHTML = "Score: " + score;
-//scre.innerHTML = `Score: ${score}`;
-
-//initialize leaderboard on highscore page
-var scoreTable = document.getElementById("score-table");
-scoreTable.innerHTML = "";
-var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
-console.log("Leaderboard score" + leaderBoardScore);
-
-//populate Leaderboard
-if (leaderBoardScore) {
-  var trows = [];
-  for (var i = 0; i < leaderBoard.length; i++) {
-    trows.push(
-      "<tr><td>" +
-        leaderBoard[i].name +
-        "</td><td>" +
-        leaderBoard[i].score +
-        "</td>"
-    );
-  }
-  scoreTable.innerHTML = trows.join("");
-}
-console.log("initial score: " + score);
 
 //Timer Countdown function
 
 function startTimer(countdown, displayTimeEl) {
-  let seconds;
+  var seconds;
   timer = setInterval(function () {
     seconds = parseInt(countdown % 60, 10);
     seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -148,23 +125,39 @@ function startTimer(countdown, displayTimeEl) {
 
 //Function to add questions and options once quiz starts
 function generateQuestion() {
-  let questionNumber = document.querySelector(".question-number");
-  let quizQuestion = document.querySelector(".question");
-  let quizOptions = document.querySelector(".options");
-  let btnAnswer = document.querySelector("#submit-answer");
+  var questionNumber = document.querySelector(".question-number");
+  var quizQuestion = document.querySelector(".question");
+  var quizOptions = document.querySelector(".options");
+  var btnAnswer = document.querySelector("#submit-answer");
 
   quizQuestion.innerHTML = questionArray[questionTracker].question;
   questionNumber.innerHTML = "Question " + (questionTracker + 1);
+  quizOptions.innerHTML = "";
 
   //add radio buttons to choose from options
-  const rdiOptions = [];
-  questionArray[questionTracker].options.forEach((o, i) => {
-    let input = `<input type='radio' id='rdo_${i}' name='answers' class='form-check-input' value='${o}' onclick='registerAnswer("${o}")'>`;
-    let label = `<label for='rdo_${i}' class='form-check-label'>${o}</label>`;
-    let rdoGroup = `<div class='form-check'>${input + label}</div>`;
-    rdiOptions.push(rdoGroup);
-  });
-  quizOptions.innerHTML = rdiOptions.join("");
+  var opts = questionArray[questionTracker].options;
+  for (var i = 0; i < opts.length; i++) {
+    var opt = opts[i];
+    var input = document.createElement("input");
+    input.type = "radio";
+    input.id = "rdo_" + i;
+    input.name = "answers";
+    input.className = "form-check-input";
+    input.setAttribute("onclick", "registerAnswer('" + opt + "')");
+
+    var label = document.createElement("label");
+    label.setAttribute("for", "rdo_" + i);
+    label.className = "form-check-label";
+    label.innerHTML = opt;
+
+    var rdoGroup = document.createElement("div");
+    rdoGroup.className = "form-check";
+    rdoGroup.appendChild(input);
+    rdoGroup.appendChild(label);
+
+    quizOptions.appendChild(rdoGroup);
+  }
+
   btnAnswer.style.visibility = "visible";
   btnAnswer.setAttribute("disabled", "disabled");
 }
@@ -183,7 +176,7 @@ function startQuiz() {
 
 //Function to store answer chosen by user
 function registerAnswer(ans) {
-  let btnAnswer = document.querySelector("#submit-answer");
+  var btnAnswer = document.querySelector("#submit-answer");
   selectedAnswer = ans;
 
   btnAnswer.removeAttribute("disabled");
@@ -192,12 +185,12 @@ function registerAnswer(ans) {
 //Check if the answer is correct
 function checkAnswer() {
   // disable radio buttons on submit
-  let rdoOptions = document.querySelectorAll("[name='answers']");
-  rdoOptions.forEach((o) => o.setAttribute("disabled", "disabled"));
+  var rdoOptions = document.querySelector("[name='answers']");
+  rdoOptions.setAttribute("disabled", "disabled");
 
   if (questionArray[questionTracker].answer === selectedAnswer) {
     score++;
-    scre.innerHTML = `Score: ${score}`;
+    scoreEl.innerHTML = "Score: " + score;
     console.log("after win score: " + score);
     ansStatus.innerHTML = "Correct Answer!";
     ansStatus.style.color = "green";
@@ -206,12 +199,12 @@ function checkAnswer() {
     ansStatus.style.color = "red";
 
     clearInterval(timer);
-    let reducedTime = parseInt(displayTimeEl.textContent, 10) - 4; //reduce 4 seconds - penalty
+    var reducedTime = parseInt(displayTimeEl.textContent, 10) - 4; //reduce 4 seconds - penalty
     startTimer(reducedTime, displayTimeEl);
   }
 
   nxtQues.style.visibility = "visible";
-  let submitBtn = document.getElementById("submit-answer");
+  var submitBtn = document.getElementById("submit-answer");
   if (questionTracker < questionArray.length) {
     submitBtn.setAttribute("disabled", "disabled");
   } else {
@@ -235,20 +228,21 @@ function nextQuestion() {
 //function to show Leaderboard
 
 function showLeaderBoard() {
+  
   questionTracker = 0;
   clearInterval(timer);
   questionCard.style.display = "none";
   leaderBoard.style.display = "block";
-  let player = document.getElementById("pname");
+  var player = document.getElementById("pname");
   player.value = "";
 }
 
 function saveLeaderBoard() {
-  let player = document.getElementById("pname");
+  var player = document.getElementById("pname");
 
   console.log("Your score\n" + "Name:" + player.value + "\nScore:" + score);
   //console.log(`Your Score\nName:${player.value}\nscore:${score}`);
-  let playerscore = {
+  var playerscore = {
     name: player.value,
     score: score,
   };
@@ -266,9 +260,14 @@ function saveLeaderBoard() {
   console.log("Player score" + score);
 
   scoreTable.innerHTML = "";
-  let trows = quiz.map((q) => {
-    return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-  });
+  var trows = [];
+  for (var i = 0; i < quiz.length; i++) {
+    trows.push("<tr><td>" + quiz.name + "</td><td>" + quiz.score + "</td>");
+  }
+
+  // var trows = quiz.map((q) => {
+  //   return `<tr><td>${q.name}</td><td>${q.score}</td>`;
+  // });
   scoreTable.innerHTML = trows.join("");
   leaderBoard.style.display = "none";
   welcome.style.display = "block";
@@ -277,3 +276,25 @@ function saveLeaderBoard() {
   scoreEl.innerHTML = "Score: " + score;
   //scre.innerHTML = `Score: ${score}`;
 }
+
+//initialize leaderboard on highscore page
+var scoreTable = document.getElementById("score-table");
+scoreTable.innerHTML = "";
+var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
+console.log("Leaderboard score" + leaderBoardScore);
+
+//populate Leaderboard
+if (leaderBoardScore) {
+  var trows = [];
+  for (var i = 0; i < leaderBoardScore.length; i++) {
+    trows.push(
+      "<tr><td>" +
+        leaderBoardScore[i].name +
+        "</td><td>" +
+        leaderBoardScore[i].score +
+        "</td>"
+    );
+  }
+  scoreTable.innerHTML = trows.join("");
+}
+console.log("initial score: " + score);
