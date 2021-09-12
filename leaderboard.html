@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Friends Trivia Quiz</title>
+  </head>
+  <body>
+    <header>
+      <div class="title">
+        <!--Title of F.R.I.E.N.D.S-->
+        F<span class="red">.</span> R<span class="blue">.</span> I<span
+          class="yellow"
+          >.</span
+        >
+        E<span class="red">.</span> N<span class="yellow">.</span> D<span
+          class="blue"
+          >.</span
+        >
+        S<span class="red">.</span>
+        Trivia Quiz
+      </div>
+    </header>
+    <!--Show Leaderboard for Current Score and All player details-->
+    <!--Score Board-->
+    <main>
+      <div class="container scoreboard">
+        <div class="high-scores" id="high-scores">
+          <h3>High Scores:</h3>
+          <div class="playerboard">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Player Name</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody id="score-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/script/leaderBoard.js"></script>
+  </body>
+</html>

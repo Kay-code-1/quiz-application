@@ -11,8 +11,8 @@ var nxtQues = document.getElementById("next-que");
 
 //Timer variables
 var timer = 0;
-//Quiz duration is 45 seconds
-var duration = 45;
+//Quiz duration is 120 seconds
+var duration = 120;
 var displayTimeEl = document.querySelector("#time");
 
 //array for questions
@@ -103,6 +103,7 @@ const questionArray = [
 var score = 0;
 var scoreEl = document.getElementById("score");
 var leaderBoard = document.getElementById("leaderboard");
+leaderBoard.style.display = 'none';
 scoreEl.innerHTML = "Score: " + score;
 
 //Timer Countdown function
@@ -110,7 +111,7 @@ scoreEl.innerHTML = "Score: " + score;
 function startTimer(countdown, displayTimeEl) {
   var seconds;
   timer = setInterval(function () {
-    seconds = parseInt(countdown % 60, 10);
+    seconds = parseInt(countdown, 10);
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     displayTimeEl.textContent = seconds;
@@ -221,27 +222,25 @@ function nextQuestion() {
   if (questionTracker < questionArray.length) {
     generateQuestion();
   } else {
-    showLeaderBoard();
+    getPlayerDetails();
   }
 }
 
 //function to show Leaderboard
 
-function showLeaderBoard() {
+function getPlayerDetails() {
   
   questionTracker = 0;
   clearInterval(timer);
   questionCard.style.display = "none";
   leaderBoard.style.display = "block";
-  var player = document.getElementById("pname");
-  player.value = "";
 }
 
 function saveLeaderBoard() {
   var player = document.getElementById("pname");
 
   console.log("Your score\n" + "Name:" + player.value + "\nScore:" + score);
-  //console.log(`Your Score\nName:${player.value}\nscore:${score}`);
+  
   var playerscore = {
     name: player.value,
     score: score,
@@ -259,42 +258,30 @@ function saveLeaderBoard() {
   console.log("Player name from Local storage" + player.value);
   console.log("Player score" + score);
 
-  scoreTable.innerHTML = "";
-  var trows = [];
-  for (var i = 0; i < quiz.length; i++) {
-    trows.push("<tr><td>" + quiz.name + "</td><td>" + quiz.score + "</td>");
-  }
-
-  // var trows = quiz.map((q) => {
-  //   return `<tr><td>${q.name}</td><td>${q.score}</td>`;
-  // });
-  scoreTable.innerHTML = trows.join("");
-  leaderBoard.style.display = "none";
-  welcome.style.display = "block";
-  score = 0;
-
-  scoreEl.innerHTML = "Score: " + score;
-  //scre.innerHTML = `Score: ${score}`;
+  window.location = "leaderboard.html";
+  
 }
 
 //initialize leaderboard on highscore page
-var scoreTable = document.getElementById("score-table");
-scoreTable.innerHTML = "";
-var leaderBoardScore = JSON.parse(localStorage.getItem("quiz"));
-console.log("Leaderboard score" + leaderBoardScore);
 
-//populate Leaderboard
-if (leaderBoardScore) {
+var scoreBoard = JSON.parse(localStorage.getItem("quiz"));
+console.log("Score Board" + scoreBoard);
+
+//populate side Leaderboard
+if (scoreBoard) {
+  var scoreTable = document.getElementById("score-table");
+  scoreTable.innerHTML = "";
   var trows = [];
-  for (var i = 0; i < leaderBoardScore.length; i++) {
-    trows.push(
-      "<tr><td>" +
-        leaderBoardScore[i].name +
-        "</td><td>" +
-        leaderBoardScore[i].score +
-        "</td>"
-    );
+  for (var i = 0; i < scoreBoard.length; i++) {
+    var trow = document.createElement("tr");
+    var tname = document.createElement("td");
+    tname.innerHTML = scoreBoard[i].name;
+    var tscore = document.createElement("td");
+    tscore.innerHTML = scoreBoard[i].score;
+    trow.appendChild(tname);
+    trow.appendChild(tscore);
+
+    scoreTable.appendChild(trow);
   }
-  scoreTable.innerHTML = trows.join("");
 }
 console.log("initial score: " + score);

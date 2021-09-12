@@ -64,20 +64,38 @@
                 <span id="ans-status"></span>
               </div>
               <div class="timer">
-                Time left <span id="time">45</span> seconds!
-              </div>
-              <div>
-                <button
-                class="btn view-leaderboard"
-                id="view-leaderboard"
-                onclick="showLeaderBoard()"
-              >
-                Submit
-              </button>
+                Time left <span id="time">120</span> seconds!
               </div>
             </div>
           </div>
-
+          <div id="leaderboard">
+            <!--Form to add details to show on Leaderboard-->
+            <div class="leaderboard-form">
+              <div class="leaderboard-form-title">
+                Enter your details for Leaderboard!
+              </div>
+      
+              <div class="leaderboard-form-details">
+                <div class="player-name">
+                  <label for="pname">Player Name</label>
+                  <input
+                    type="text"
+                    id="pname"
+                    name="playername"
+                    class="leaderboard-form-input"
+                    placeholder="Enter your name..."
+                  />
+                </div>
+      
+                <input
+                  type="button"
+                  class="btn"
+                  value="Submit"
+                  onclick="saveLeaderBoard()"
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         <!--Score Board-->
